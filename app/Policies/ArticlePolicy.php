@@ -20,7 +20,7 @@ class ArticlePolicy
     {
         return true;
     }
-
+//aa
     /**
      * Determine whether the user can view the article.
      *
