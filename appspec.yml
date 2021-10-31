@@ -1,16 +1,16 @@
 version: 0.0
 os: linux
 files:
- -source: /
-  desttination: /home/webapp/laravel-ci
+  - source: /
+    destination: /home/webapp/laravel-ci
 
 permissions:
- - object: /home/webapp/laravel-ci
-   owner: webapp
-   group: webapp
+  - object: /home/webapp/laravel-ci
+    owner: webapp
+    group: webapp
 
-hooks
- AfterInstall:
- - location: ./scripts/after_install.sh
-   timeout: 60
-   runas: webapp
+hooks:
+  AfterInstall:
+    - location: ./scripts/after_install.sh
+      timeout: 60
+      runas: webapp
