@@ -39,38 +39,38 @@ jobs:
     environment:
       AWS_DEFAULT_REGION: ap-northeast-1
     steps:
-     - checkout
-     -run : sudo composer self-update --1
-     - restore_cache:
-        key: composer-no-dev-v1-{{checksum "composer.lock"}}
-     - run: composer install -n --no-dev --prefer-dist
-     - save_cache:
-        key: composer-no-dev-v1-{{checksum "composer.lock"}}
-        paths:
-         - vendor
-     - restore_cache:
-        key: npm-v1-{{checksum "package-lock.json"}}
-     - run:
-        name: npm ci
-        command: |
-         if [! -d node_modules]; then
-          npm ci
-         fi
-     - save_cache:
-        key: npm-v1-{{checksum "package-lock.json"}}
-        paths:
-         - node_modules
-     - run: npm run prod
-     - run:
-       name: achive artifacts
-       command: zip -ryq laravel-ci.zip .
-     - run:
-        name: deploy to prod
-        command: |
-         aws deploy create-deployment \
-         --aplocation-name laravel-ci \
-         --deployment-group-name laravel-ci \
-         --s3-location bucket=${AWS_S3_BUCKET_NAME},key=laravel-ci.zip,bundleType=zip
+      - checkout
+      - run: sudo composer self-update --1
+      - restore_cache:
+          key: composer-no-dev-v1-{{checksum "composer.lock"}}
+      - run: composer install -n --no-dev --prefer-dist
+      - save_cache:
+          key: composer-no-dev-v1-{{checksum "composer.lock"}}
+          paths:
+            - vendor
+      - restore_cache:
+          key: npm-v1-{{checksum "package-lock.json"}}
+      - run:
+          name: npm ci
+          command: |
+            if [! -d node_modules]; then
+             npm ci
+            fi
+      - save_cache:
+          key: npm-v1-{{checksum "package-lock.json"}}
+          paths:
+            - node_modules
+      - run: npm run prod
+      - run:
+        name: achive artifacts
+        command: zip -ryq laravel-ci.zip .
+      - run:
+          name: deploy to prod
+          command: |
+            aws deploy create-deployment \
+            --aplocation-name laravel-ci \
+            --deployment-group-name laravel-ci \
+            --s3-location bucket=${AWS_S3_BUCKET_NAME},key=laravel-ci.zip,bundleType=zip
 
 orbs:
   aws-cli: circleci/aws-cli@1.0.0
