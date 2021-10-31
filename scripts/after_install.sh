@@ -1,7 +1,7 @@
-#$/bin/bash
+#!/bin/bash
 
 set -eux
 
-cd  ~/laravel-ci
+cd ~/laravel-ci
 php artisan migrate --force
 php artisan config:cache
