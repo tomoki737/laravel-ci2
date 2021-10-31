@@ -6,7 +6,7 @@
 
     @guest
     <li class="nav-item">
-      <a class="nav-link" href="{{ route('register') }}">ユーザー登録です</a>
+      <a class="nav-link" href="{{ route('register') }}">ユーザー登録で</a>
     </li>
     @endguest
 
